@@ -1,4 +1,4 @@
-import {Controller, Delete, Get, HttpCode, Post, Put, Headers} from '@nestjs/common';
+import {Controller, Delete, Get, HttpCode, Post, Put, Headers, Query} from '@nestjs/common';
 import { AppService } from './app.service';
 
 //http://172.0.0.1:3000/segmentoInicial/segmentoAccion
@@ -14,16 +14,27 @@ export class AppController {
   }
   @Get('/adivina')
   adivina(@Headers() headers):string{ //<-- clase
-    console.log('Headers: ',headers);
     const numeroRandomico = Math.round(Math.random() * 10);
     const numeroDeCabecera = Number(headers.numero);
-    
+      console.log('Headers: ',headers);
     if(numeroDeCabecera == numeroRandomico){
       return 'OK';
     }else{
         return ':-(';
     }
       return "OK";
+  }
+
+  //?llave=valor&llave2=valor2
+  @Get('/consultar')
+  consultar(@Query() queryParams){
+      console.log('Query Params',queryParams);
+      if(queryParams.nombre){
+          return `Hola ${queryParams.nombre} ${queryParams.apellido}`
+      }else{
+          return 'Hola extraño'
+      }
+
   }
 
   @Post('/hola-mundo') //Método HTTP
@@ -106,11 +117,12 @@ export class AppController {
         }
     ]
 }];*/
-
+/*
 let objeto:any = {
     propiedad:'valor1',
     propiedadDos:'valor2',
 };
+/*
 objeto.propiedad // --> devuelve valor1
 objeto.propiedadDos // --> devuelve valor2
 
@@ -121,4 +133,4 @@ objeto['propiedadTres']='valor3';
 //forma peligrosa (NO ABUSAR)
 delete objeto.propiedadTres;
 //forma segura
-objeto.propiedadTres = undefined;
+objeto.propiedadTres = undefined;*/
