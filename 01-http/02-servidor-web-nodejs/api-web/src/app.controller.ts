@@ -1,5 +1,21 @@
-import {Controller, Delete, Get, HttpCode, Post, Put, Headers, Query} from '@nestjs/common';
+import {
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    Post,
+    Put,
+    Headers,
+    Query,
+    Param,
+    Body,
+    Request,
+    Response,
+    Req
+} from '@nestjs/common';
 import { AppService } from './app.service';
+import {response} from "express";
+import {retry} from "rxjs/operators";
 
 //http://172.0.0.1:3000/segmentoInicial/segmentoAccion
 //@Controller(segmentoInicial)
@@ -30,11 +46,59 @@ export class AppController {
   consultar(@Query() queryParams){
       console.log('Query Params',queryParams);
       if(queryParams.nombre){
-          return `Hola ${queryParams.nombre} ${queryParams.apellido}`
+          return `Hola ${queryParams.nombre} ${queryParams.apellido}`;
       }else{
-          return 'Hola extraño'
+          return 'Hola extraño';
       }
+  }
 
+  @Get('/ciudad/:idCiudad')ciudad(@Param() parametroDeRuta){
+      switch (parametroDeRuta.idCiudad.toLowerCase()){
+          case 'quito':
+                return 'Que fueff';
+          case 'guayaquil':
+              return 'Que maah ñañoshh';
+          default:
+              return 'Buenas tardes';
+      }
+  }
+
+    @Post('/ciudad/:idCiudad')ciudadPOST(@Param() parametroDeRuta) {
+        switch (parametroDeRuta.idCiudad.toLowerCase()) {
+            case 'quito':
+                return 'Que fueff';
+            case 'guayaquil':
+                return 'Que maah ñañoshh';
+            default:
+                return 'Buenas tardes';
+        }
+    }
+
+    @Post('registroComida')
+    registroComida(
+        @Body() parametrosCuerpo,
+        @Response() response,
+    ){
+      if (parametrosCuerpo.nombre && parametrosCuerpo.cantidad) {
+          const cantidad = Number(parametrosCuerpo.cantidad);
+          if (parametrosCuerpo.cantidad > 1) {
+              response.set('Premio', 'Fanesca');
+          }
+          return response.send({mensaje: 'Registro Creado'});
+      }else {
+              return response.status(400).send({mensaje: 'Error, no envía nombre o cantidad',error: 400});
+          }
+    }
+
+  @Get('/semilla')
+  semilla(@Request() request){
+      console.log(request.cookies);
+      const cookies = request.cookies;
+      if(cookies.micookie){
+          return 'habemus cookie'
+      }else{
+          return '¡no hay cookie! D:'
+      }
   }
 
   @Post('/hola-mundo') //Método HTTP
