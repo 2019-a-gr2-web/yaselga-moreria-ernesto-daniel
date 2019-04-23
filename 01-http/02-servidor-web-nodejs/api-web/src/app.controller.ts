@@ -16,6 +16,7 @@ import {
 import { AppService } from './app.service';
 import {response} from "express";
 import {retry} from "rxjs/operators";
+import * as joi from '@hapi/joi';
 
 //http://172.0.0.1:3000/segmentoInicial/segmentoAccion
 //@Controller(segmentoInicial)
@@ -90,10 +91,56 @@ export class AppController {
           }
     }
 
+    @Post('Calculadora')
+    calculadoraFuncion(
+        @Body() parametrosCuerpo,
+        @Response() response,
+    ){
+      if(parametrosCuerpo.x && parametrosCuerpo.y && parametrosCuerpo.op){
+          const numero1 = Number(parametrosCuerpo.x);
+          const numero2 = Number(parametrosCuerpo.y);
+          const SignoOperador:string = parametrosCuerpo.op;
+
+          switch(SignoOperador){
+              case '+':{
+                  const resp = numero1+numero2;
+                  return response.send({respuesta: 'La suma es: ',resp})
+              }
+              case '-':{
+                  const resp = numero1-numero2;
+                  return response.send({respuesta: 'La resta es: ',resp})
+              }
+              case '*':{
+                  const resp = numero1*numero2;
+                  return response.send({respuesta: 'El producto es: ',resp})
+              }
+              case '/':{
+                  const resp = numero1/numero2;
+                  return response.send({respuesta: 'La division es: ',resp})
+              }
+              default:{
+                  return response.send({respuesta: 'Operador desconocido: '})
+              }
+
+          }
+      }else{
+          return response.status(400).send({mensaje: 'Error, no hay suficientes parametros para el calculo', error: 400});
+      }
+    }
+
   @Get('/semilla')
   semilla(@Request() request){
       console.log(request.cookies);
       const cookies = request.cookies;
+      const esquemaValidacionNumero = joi.object().keys({
+          numero:joi.number().integer()
+      });
+      const objetoValidacion = {
+          numero: cookies.numero
+      }
+      joi.validate()
+
+
       if(cookies.micookie){
           return 'habemus cookie'
       }else{
