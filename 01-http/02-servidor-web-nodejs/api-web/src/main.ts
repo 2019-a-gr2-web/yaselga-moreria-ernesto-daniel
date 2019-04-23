@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser'); //<-- forma javascript
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use(cookieParser());
+  app.use(cookieParser('secreto para las cookies'));
 
   await app.listen(3000);
 }

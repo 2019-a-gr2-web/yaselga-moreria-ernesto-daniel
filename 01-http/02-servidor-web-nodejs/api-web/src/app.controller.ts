@@ -128,25 +128,57 @@ export class AppController {
       }
     }
 
-  @Get('/semilla')
-  semilla(@Request() request){
-      console.log(request.cookies);
-      const cookies = request.cookies;
-      const esquemaValidacionNumero = joi.object().keys({
-          numero:joi.number().integer()
-      });
-      const objetoValidacion = {
-          numero: cookies.numero
-      }
-      joi.validate()
+    @Get('/semilla')
+    semilla(@Request() request, @Response() response) {
+        console.log(request.cookies);
+        const cookies = request.cookies; // JSON
 
+        const esquemaValidacionNumero = joi
+            .object()
+            .keys({
+                numero: joi.number().integer().required()
+            });
 
-      if(cookies.micookie){
-          return 'habemus cookie'
-      }else{
-          return '¡no hay cookie! D:'
-      }
-  }
+        const objetoValidacion = {
+            numero: cookies.numero
+        };
+        const resultado = joi.validate(objetoValidacion,
+            esquemaValidacionNumero);
+
+        if(resultado.error){
+            console.log('Resultado: ', resultado);
+        }else{
+            console.log('Numero valido');
+        }
+
+        const cookieSegura = request.signedCookies.fechaServidor;
+        if(cookieSegura){
+            console.log('Cookie segura');
+        }else{
+            console.log('No es valida esta cookie');
+        }
+
+        if (cookies.numero) {
+
+            const horaFechaServidor = new Date();
+            const minutos = horaFechaServidor.getMinutes();
+            horaFechaServidor.setMinutes(minutos + 1);
+
+            response.cookie(
+                'fechaServidor',      // NOMBRE (key)
+                new Date().getTime(),  // VALOR  (value)
+                {    // OPCIONES
+                    expires: horaFechaServidor,
+                    signed: true
+                }
+            );
+
+            return response.send('OK');
+        } else {
+            return response.send(':(');
+        }
+
+    }
 
   @Post('/hola-mundo') //Método HTTP
   postHello(){
