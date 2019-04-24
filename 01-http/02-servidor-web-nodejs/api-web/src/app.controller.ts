@@ -10,13 +10,14 @@ import {
     Param,
     Body,
     Request,
-    Response,
-    Req
+    Response
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import {response} from "express";
 import {retry} from "rxjs/operators";
 import * as joi from '@hapi/joi';
+//import {constants} from "http2";
+
 
 //http://172.0.0.1:3000/segmentoInicial/segmentoAccion
 //@Controller(segmentoInicial)
@@ -75,6 +76,7 @@ export class AppController {
         }
     }
 
+
     @Post('registroComida')
     registroComida(
         @Body() parametrosCuerpo,
@@ -91,38 +93,62 @@ export class AppController {
           }
     }
 
+    @Post('/user')
+    ingresoUsuario(
+        @Query() queryParams,
+        @Response() response){
+        if(queryParams.Usuario){
+            const userName = queryParams.Usuario;
+            response.cookie(
+                'usuario',
+                userName
+            )
+            console.log('se ha enviado la cookie con el usuario:  ',userName);
+            return response.send({mensaje: 'Hola ',userName});
+        }else{
+            return response.send({mensaje: 'Error, envie un usuario por favor', error: 400});
+        }
+
+    }
+
     @Post('Calculadora')
     calculadoraFuncion(
+        @Request() request,
         @Body() parametrosCuerpo,
-        @Response() response,
+        @Response() response
     ){
       if(parametrosCuerpo.x && parametrosCuerpo.y && parametrosCuerpo.op){
           const numero1 = Number(parametrosCuerpo.x);
           const numero2 = Number(parametrosCuerpo.y);
           const SignoOperador:string = parametrosCuerpo.op;
-
-          switch(SignoOperador){
-              case '+':{
-                  const resp = numero1+numero2;
-                  return response.send({respuesta: 'La suma es: ',resp})
-              }
-              case '-':{
-                  const resp = numero1-numero2;
-                  return response.send({respuesta: 'La resta es: ',resp})
-              }
-              case '*':{
-                  const resp = numero1*numero2;
-                  return response.send({respuesta: 'El producto es: ',resp})
-              }
-              case '/':{
-                  const resp = numero1/numero2;
-                  return response.send({respuesta: 'La division es: ',resp})
-              }
-              default:{
-                  return response.send({respuesta: 'Operador desconocido: '})
-              }
-
+          let userName = "Invitado";
+          if(request.cookies.usuario){
+              userName = request.cookies.usuario;
+              console.log('se cambio el userName a ',request.cookies.usuario)
+           //   response.send({saludo: 'Hola ',userName})
           }
+              switch(SignoOperador){
+                  case '+':{
+                      const resp = numero1+numero2;
+                      return response.send({saludo:"Hola",userName,respuesta: 'La suma es: ',resp})
+                  }
+                  case '-':{
+                      const resp = numero1-numero2;
+                      return response.send({saludo:"Hola",userName,respuesta: 'La resta es: ',resp})
+                  }
+                  case '*':{
+                      const resp = numero1*numero2;
+                      return response.send({saludo:"Hola",userName,respuesta: 'El producto es: ',resp})
+                  }
+                  case '/':{
+                      const resp = numero1/numero2;
+                      return response.send({saludo:"Hola",userName,respuesta: 'La division es: ',resp})
+                  }
+                  default:{
+                      return response.send({saludo:"Lo sentimos ",userName,respuesta: 'pero es operador es desconocido: '})
+                  }
+              }
+
       }else{
           return response.status(400).send({mensaje: 'Error, no hay suficientes parametros para el calculo', error: 400});
       }
