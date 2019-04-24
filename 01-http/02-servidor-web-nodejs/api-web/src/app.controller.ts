@@ -222,8 +222,58 @@ export class AppController {
     return"Ola mundo"
   }
 
-}
+  @Get('inicio')
+  inicio(@Response() res){
+      return res.render('inicio');
 
+  }
+}
+function holaMundo(){
+    console.log('Hola Mundo'); // respuesta void (no respuesta)
+}
+const respuestaHolaMundo = holaMundo();
+console.log('resp de hola mundo: ');
+
+function suma(a:number,b:number):number{
+    console.log('suma');
+    return a + b; // respuesta con un valor
+}
+const respuestaSuma = suma(1,3);
+console.log('resp suma: ',respuestaSuma);
+
+//con el arreglo:  arreglonumeros = [1,2,3,4,5,6];
+// 1) Imprimir todos los numeros
+console.log(`1)`)
+const arreglonumeros = [1,2,3,4,5,6];
+const rForEach = arreglonumeros
+    .forEach(n => console.log(`${n}`)
+);
+console.log(`RESPUESTA FOREACH: ${rForEach}`)
+
+// 2) Sumar 2 a todos los pares y 1 a los impares
+const arreglonumerosMap = [1,2,3,4,5,6];
+const rMap = arreglonumerosMap
+    .map( //devolver el nuevo valor de ese elemento
+        (valorActual)=>{
+            const esPar =  valorActual%2==0;
+            if(esPar){
+                return valorActual +2;
+            }else{
+                return valorActual +1;
+            }
+        }
+    );
+console.log(`2)  ${rMap}`)
+
+// 3) Encuentra el numero 4 si existe
+const arreglonumerosFind = [1,2,3,4,5,6];
+// 4) Filtrar los numeros menores a 5
+const arreglonumerosFilter = [1,2,3,4,5,6];
+const rFilter = arreglonumerosFilter
+    .filter(valorActual => {
+        return valorActual < 5;
+    });
+console.log(`5) Respuesta Filter: ${rFilter}`)
 
 
 /*class usuario{
