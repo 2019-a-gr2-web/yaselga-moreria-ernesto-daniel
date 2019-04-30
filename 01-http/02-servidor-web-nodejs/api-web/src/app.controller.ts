@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import {response} from "express";
-import {retry} from "rxjs/operators";
+import {reduce, retry} from "rxjs/operators";
 import * as joi from '@hapi/joi';
 //import {constants} from "http2";
 
@@ -99,12 +99,11 @@ export class AppController {
         @Response() response){
         if(queryParams.Usuario){
             const userName = queryParams.Usuario;
-            response.cookie(
-                'usuario',
-                userName
-            )
+            response.cookie('usuario',userName);
             console.log('se ha enviado la cookie con el usuario:  ',userName);
-            return response.send({mensaje: 'Hola ',userName});
+            response.cookie('puntaje',100);
+            response.cookie('intentos',0);
+            return response.send({mensaje: `Hola ${userName}, ¿estás listo para jugar?`});
         }else{
             return response.send({mensaje: 'Error, envie un usuario por favor', error: 400});
         }
@@ -122,27 +121,43 @@ export class AppController {
           const numero2 = Number(parametrosCuerpo.y);
           const SignoOperador:string = parametrosCuerpo.op;
           let userName = "Invitado";
-          if(request.cookies.usuario){
+          let puntaje = 0;
+          let intentos = 0;
+
+          let  retornado = "";
+          if(request.cookies.usuario) {
               userName = request.cookies.usuario;
-              console.log('se cambio el userName a ',request.cookies.usuario)
-           //   response.send({saludo: 'Hola ',userName})
+              puntaje = request.cookies.puntaje;
+              intentos = request.cookies.intentos;
+              console.log('se cambio el userName a ', request.cookies.usuario)
+              if(puntaje<=0){
+                  return response.send({gameStatus:'Felicidades',mensaje:`Felicidades ${userName}, has ganando en ${intentos} intentos`});
+              }
           }
               switch(SignoOperador){
                   case '+':{
                       const resp = numero1+numero2;
-                      return response.send({saludo:"Hola",userName,respuesta: 'La suma es: ',resp})
+                      puntaje = puntaje-resp;
+                      intentos++;
+                      return response.cookie('puntaje',puntaje).cookie('intentos',intentos).send({saludo:"Hola",userName,respuesta: 'La suma es: ',resp})
                   }
                   case '-':{
                       const resp = numero1-numero2;
-                      return response.send({saludo:"Hola",userName,respuesta: 'La resta es: ',resp})
+                      puntaje = puntaje-resp;
+                      //response.cookie('puntaje',puntaje);
+                      return response.cookie('puntaje',puntaje).send({saludo:"Hola",userName,respuesta: 'La resta es: ',resp})
                   }
                   case '*':{
                       const resp = numero1*numero2;
-                      return response.send({saludo:"Hola",userName,respuesta: 'El producto es: ',resp})
+                      puntaje = puntaje-resp;
+                      //response.cookie('puntaje',puntaje);
+                      return response.cookie('puntaje',puntaje).send({saludo:"Hola",userName,respuesta: 'El producto es: ',resp})
                   }
                   case '/':{
                       const resp = numero1/numero2;
-                      return response.send({saludo:"Hola",userName,respuesta: 'La division es: ',resp})
+                      puntaje = puntaje-resp;
+                      //response.cookie('puntaje',puntaje);
+                      return response.cookie('puntaje',puntaje).send({saludo:"Hola",userName,respuesta: 'La division es: ',resp})
                   }
                   default:{
                       return response.send({saludo:"Lo sentimos ",userName,respuesta: 'pero es operador es desconocido: '})
@@ -152,6 +167,7 @@ export class AppController {
       }else{
           return response.status(400).send({mensaje: 'Error, no hay suficientes parametros para el calculo', error: 400});
       }
+
     }
 
     @Get('/semilla')
@@ -275,6 +291,43 @@ const rFilter = arreglonumerosFilter
     });
 console.log(`5) Respuesta Filter: ${rFilter}`)
 
+
+const arregloNumerosReduce = [1,2,2,3,4,5,6];
+const valorDondeEmpiezaCalculo = 0;
+const respuestaReduce = arregloNumerosReduce.reduce(
+    (acumulado,valorActual)=>{
+        if(valorActual>4){
+            return acumulado + valorActual * 1.1 + 5;
+        }else {
+            return acumulado + valorActual * 1.15 + 3;
+        }
+        },
+    valorDondeEmpiezaCalculo
+);
+console.log(`6) Respuesta Reduce: ${respuestaReduce}`);
+
+const arregloNumerosCien = [1,2,2,3,4,5,6];
+const valorDondeEmpiezaCien = 100;
+const respuestaCienReduce = arregloNumerosCien.reduce(
+    (acumulado,valorActual)=>{
+        return acumulado-valorActual;
+    },
+    valorDondeEmpiezaCien
+);
+console.log(`7) Respuesta Reduce 100 - arreglo: ${respuestaCienReduce}`);
+const arregloEjercicio = [1,2,3,4,5,6];
+const respuesta = arregloEjercicio
+    .map((valorActual)=>{
+        return valorActual+10;
+    })
+    .filter((valorActual)=>{
+        return valorActual >75;
+    })
+    .some((valorActual)=>{
+        return valorActual >30;
+    })
+
+console.log(`Ejercicio: ${respuesta}`);
 
 /*class usuario{
   atributoPublico; //por defecto publico

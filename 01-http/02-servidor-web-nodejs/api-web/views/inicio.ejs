@@ -2,3 +2,10 @@
 <% const nombre = 'Ernesto';  // codigo JS%>
 <%= nombre%>
 <% const arreglo = [1,2,3,4,5];%>
+<%= arreglo %>
+<% const objeto = {nombre: 'Ernesto'};%>
+<%= objeto %>
+<% arreglo.forEach((valorActual)=>{%>
+    <p> Numero: <%=valorActual%></p>
+<% })%>
+
