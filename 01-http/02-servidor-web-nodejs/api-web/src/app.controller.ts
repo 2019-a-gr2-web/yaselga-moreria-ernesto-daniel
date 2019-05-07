@@ -240,8 +240,13 @@ export class AppController {
 
   @Get('inicio')
   inicio(@Response() res){
-      return res.render('inicio');
+      return res.render('inicio',{estaVivo:false});
 
+  }
+
+  @Get('peliculas')
+    inicio_peliculas(@Response() res){
+      return res.render('peliculas/inicio')
   }
 }
 function holaMundo(){
@@ -406,3 +411,4 @@ objeto['propiedadTres']='valor3';
 delete objeto.propiedadTres;
 //forma segura
 objeto.propiedadTres = undefined;*/
+
