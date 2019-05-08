@@ -16,6 +16,7 @@ import { AppService } from './app.service';
 import {response} from "express";
 import {reduce, retry} from "rxjs/operators";
 import * as joi from '@hapi/joi';
+import useRealTimers = jest.useRealTimers;
 //import {constants} from "http2";
 
 
@@ -244,9 +245,14 @@ export class AppController {
 
   }
 
-  @Get('peliculas')
+  @Get('peliculas') // endpoint
     inicio_peliculas(@Response() res){
       return res.render('peliculas/inicio')
+  }
+
+  @Get('estilos')
+  estilos(@Response() res){
+      return res.render('peliculas/estilos')
   }
 }
 function holaMundo(){
