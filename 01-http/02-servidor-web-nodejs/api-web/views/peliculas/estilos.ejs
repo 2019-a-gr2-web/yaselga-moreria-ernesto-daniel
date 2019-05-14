@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -27,16 +28,96 @@
         background-color: orange;
     }
     /*selector -> id*/
+    /* selector -> ID */
     #adios {
         color: pink;
         background-color: purple;
     }
-
-
-
+    /* selector -> Clase */
+    .verde {
+        color: brown;
+        background-color: blue;
+    }
+    /* importancia selector  ID > CLASE.ETIQUETA >  CLASE > ETIQUETA
+      */
+    /*  CLASE > CLASE > CLASE (la ultima es la mas importante)   */
+    p {
+        color: orange;
+        background-color: green;
+    }
+    p {
+        color: blue;
+        background-color: orange;
+    }
+    .azul {
+        color: deepskyblue;
+    }
+    .morado {
+        color: purple;
+    }
+    .verde {
+        color: greenyellow;
+    }
+    p.verde {
+        color: orange;
+    }
+    p.verde.azul {
+        color: black;
+    }
+    .separador {
+        margin-bottom: 200px;
+        margin-top: 200px;
+    }
 
 </style>
 <body>
+<div class="container">
+    <!--<div class="row">-->
+        <!--<div class="col-sm-12">-->
+            <!--<h1>COLUMNA 12</h1>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-6">-->
+            <!--<h1>COLUMNA 6</h1>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6">-->
+            <!--<h1>COLUMNA 6</h1>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="row">
+        <div class="col-sm-2">
+            PELISPLUS
+        </div>
+        <div class="col-sm-7">
+            Inicio Series En Estreno Peliculas 2019 Marvel DC
+        </div>
+        <div class="col-sm-3">
+            Buscar
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <table>
+                <tr>
+                    <td>i</td>
+                    <td>Accion</td>
+                    <td>824</td>
+                </tr>
+                <tr>
+                    <td>i</td>
+                    <td>Animacion</td>
+                    <td>356</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+</div>
+
+
+    <div class="separador"></div>
     <h1>Hola</h1>
     <h1 id="adios">Adios</h1>
     <h1 class="Verde">Bienvenidos</h1>
