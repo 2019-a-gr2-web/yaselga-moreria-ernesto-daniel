@@ -254,6 +254,8 @@ export class AppController {
   estilos(@Response() res){
       return res.render('peliculas/estilos')
   }
+
+
 }
 function holaMundo(){
     console.log('Hola Mundo'); // respuesta void (no respuesta)
