@@ -4,13 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/views/peliculas/inicio.ejs" line="26" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cc45b95e-259f-4719-878a-d2a89e45e6f5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/src/xiaomi/xiaomi.controller.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/src/xiaomi/xiaomi.module.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/src/xiaomi/xiaomi.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/views/xiaomi/paginaXiaomi.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/views/xiaomi/paginaXiaomi.ejs" afterDir="false" />
-    </list>
+    <list default="true" id="cc45b95e-259f-4719-878a-d2a89e45e6f5" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -24,6 +18,7 @@
     <session id="456707109">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -92,8 +87,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/views/tragos/lista-tragos.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+            <state relative-caret-position="12">
+              <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="30" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -1020,9 +1015,9 @@
       <path value="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="363" />
-    <option name="y" value="-13" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="321" />
+    <option name="y" value="55" />
     <option name="width" value="720" />
     <option name="height" value="860" />
   </component>
@@ -1163,7 +1158,7 @@
       <workItem from="1558465475112" duration="6426000" />
       <workItem from="1558500947065" duration="90000" />
       <workItem from="1558501115829" duration="2167000" />
-      <workItem from="1558552669359" duration="6215000" />
+      <workItem from="1558552669359" duration="6270000" />
     </task>
     <task id="LOCAL-00001" summary="prueba de sync">
       <created>1556073768878</created>
@@ -1176,7 +1171,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70976000" />
+    <option name="totallyTimeSpent" value="71031000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1188,10 +1183,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="true" />
+    <frame x="321" y="55" width="720" height="860" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15444288" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32111436" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1204,7 +1198,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32921812" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="9" weight="0.32921812" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4992948" visible="true" weight="0.29080933" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4992948" visible="true" weight="0.2973352" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50070524" side_tool="true" weight="0.2674897" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32921812" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1412,8 +1406,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api-web/views/tragos/lista-tragos.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+        <state relative-caret-position="12">
+          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="30" selection-end-column="34" />
         </state>
       </provider>
     </entry>
