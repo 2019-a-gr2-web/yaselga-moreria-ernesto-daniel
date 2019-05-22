@@ -31,6 +31,7 @@ export class AppController {
   getHello(): string {
     return "Hello world";
   }
+
   @Get('/adivina')
   adivina(@Headers() headers):string{ //<-- clase
     const numeroRandomico = Math.round(Math.random() * 10);
@@ -244,6 +245,13 @@ export class AppController {
       return res.render('inicio',{estaVivo:false});
 
   }
+
+    @Get('xiaomi')
+    paginaXiaomi(@Response() res){
+      return res.render('xiaomi/paginaXiaomi');
+    }
+
+
 
   @Get('peliculas') // endpoint
     inicio_peliculas(@Response() res){
