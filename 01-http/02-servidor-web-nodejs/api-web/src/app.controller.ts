@@ -250,6 +250,10 @@ export class AppController {
     paginaXiaomi(@Response() res){
       return res.render('xiaomi/paginaXiaomi');
     }
+    @Get('xiaomitest')
+    paginaXiaomiTest(@Response() res){
+        return res.render('xiaomi/paginaXiaomiTest');
+    }
 
 
 

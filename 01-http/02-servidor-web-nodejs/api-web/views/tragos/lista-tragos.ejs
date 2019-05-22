@@ -1,3 +1,14 @@
+<style>
+    table,tr,td,th{
+        border: solid black 1px;
+    }
+</style>
+
+<a href="/api/traguito/crear">
+    <button>Crear</button>
+</a>
+
+
 <table>
     <tr>
         <th>Nombre</th>
@@ -15,8 +26,12 @@
         <td> <%=trago.precio%> </td>
         <td> <%=trago.tipo%> </td>
         <td>
-            <button>Eliminar</button>
-            <button>Editar</button>
+            <form
+                    action="/api/traguito/borrar"
+                    method="post">
+                <button>Eliminar</button>
+            </form>
+            <button>Editar </button>
         </td>
     </tr>
     <% })%>
