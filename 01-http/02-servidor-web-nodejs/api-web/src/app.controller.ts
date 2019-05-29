@@ -246,11 +246,11 @@ export class AppController {
 
   }
 
-    @Get('xiaomi')
+  @Get('xiaomi')
     paginaXiaomi(@Response() res){
       return res.render('xiaomi/paginaXiaomi');
     }
-    @Get('xiaomitest')
+  @Get('xiaomitest')
     paginaXiaomiTest(@Response() res){
         return res.render('xiaomi/paginaXiaomiTest');
     }
@@ -267,8 +267,16 @@ export class AppController {
       return res.render('peliculas/estilos')
   }
 
+  //EXAMEN 1 BIMESTRE
+  @Get('examen')
+  login(@Response() res){
+      return res.render('examen1/login')
+  }
 
 }
+
+
+
 function holaMundo(){
     console.log('Hola Mundo'); // respuesta void (no respuesta)
 }
