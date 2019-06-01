@@ -29,7 +29,7 @@ export class AppController {
 //@Get(SegmentoAccion)
   @Get('/hello-world') //Método HTTP
   getHello(): string {
-    return "Hello world";
+    return "Hello world --es esto ";
   }
 
   @Get('/adivina')
