@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Crear Materia</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/Imagenes/dropbox.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- header 1-6-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+        <a class="navbar-brand" href="/">Examen Web GR2</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item active" style="padding-right: 60px;">
+                    <a>
+                        <span>
+                           <%= nombre%>
+                        </span>
+
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto" id="navbarSupportedContent">
+                <li id="btn-salir" class="nav-item active">
+                    <form action="/examen/borrarCookie" method="POST">
+                        <button type="submit" class="btn btn-primary" style="background-color: lightblue">Salir</button>
+                    </form>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="mt-5 d-flex justify-content-center">
+            <form action="/examen/Estudiante/crearMateria" method="post">
+                <h1>Formulario de Creación de Materias</h1>
+                <p>Crea un nuevo producto.</p>
+
+                <form action="/examen/Estudiante/crearMateria" method="post">
+                    <label for="codigoId">Codigo Materia</label>
+                    <input id="codigoId" name="codigo" type="text">
+                    <br>
+                    <label for="nombreMateriaID">Nombre Materia</label>
+                    <input id="nombreMateriaID" name="nombre" type="text">
+                    <br>
+                    <label for="descripcionId">Descripcion</label>
+                    <input id="descripcionId" name="descripcion" type="text">
+                    <br>
+                    <label for="numeroHorasPorSemanaId">Horas x Semana</label>
+                    <input id="numeroHorasPorSemanaId" name="numeroHorasPorSemana" type="number" min="0" max="100" step="0.01">
+                    <br>
+                    <label for="fechaCreacionId">Fecha de creacion</label>
+                    <input id="fechaCreacionId" name="fecha_Creacion" type="date">
+                    <br>
+                    <label for="activoID">Activo</label>
+                    <input id="activoID" name="activo" type="radio" min="0">
+                    <br>
+                    <label for="EstudianteID">Id Estudiante</label>
+                    <input id="EstudianteID" name="estudianteID" type="number" min="0" value="<%=id%>">
+                    <br>
+                    <br>
+                    <!--<button type="reset">Reset</button>-->
+                    <!--<button type="submit">Submit</button>-->
+                    <a href="/examen/Estudiante/gestionarMaterias">
+                        <button type="button">Cancelar</button>
+                    </a>
+                    <button>Enviar Informacion</button>
+                </form>
+            </form>
+
+            <br>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+
+</html>

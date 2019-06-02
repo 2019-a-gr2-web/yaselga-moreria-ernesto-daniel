@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Crear Estudiante</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/Imagenes/dropbox.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- header 1-6-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+
+        <a class="navbar-brand" href="/">Examen Web GR2</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item active" style="padding-right: 60px;">
+                    <a>
+                        <span>
+                           <%= nombre%>
+                        </span>
+
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto" id="navbarSupportedContent">
+                <li id="btn-salir" class="nav-item active">
+                    <form action="/examen/borrarCookie" method="POST">
+                        <button type="submit" class="btn btn-primary" style="background-color: lightblue">Salir</button>
+                    </form>
+
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    Modificar
+    <div class="container">
+        <div class="mt-5 d-flex justify-content-center">
+            <form action="/examen/crearEstudiante" method="post">
+                <h1>Formulario de Ingreso de Estudiantes</h1>
+                <p>Ingresar nuevo Estudiante.</p>
+
+                <form action="/examen/crearEstudiante" method="post">
+
+                    <label for="CIId">CI</label>
+                    <input id="CIId" name="CI" type="number" min="0">
+                    <br>
+                    <label for="nombreId">Nombre Estudiante</label>
+                    <input id="nombreEstudianteId" name="nombre" type="text">
+                    <br>
+                    <label for="apellidoId">Apellido Estudiante</label>
+                    <input id="apellidoId" name="apellido" type="text">
+                    <br>
+                    <label for="fecha_nacimientoId">Fecha de nacimiento</label>
+                    <input id="fecha_nacimientoId" name="fecha_nacimiento" type="date">
+
+                    <br>
+
+                    <br>
+                    <label for="GraduadoId">¿Está graduado Graduado?</label>
+                    <input id="GraduadoId" name="Graduado" type="radio">
+                    <br>
+                    <!--<button type="reset">Reset</button>-->
+                    <!--<button type="submit">Submit</button>-->
+                    <a href="/examen/gestionarEstudiante">
+                        <button type="button">Cancelar</button>
+                    </a>
+                    <button>Enviar Informacion</button>
+                </form>
+            </form>
+
+            <br>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+
+</html>
