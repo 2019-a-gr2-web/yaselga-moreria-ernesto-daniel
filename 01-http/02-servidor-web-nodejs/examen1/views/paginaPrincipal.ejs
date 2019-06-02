@@ -24,7 +24,7 @@
             <ul class="navbar-nav m-auto">
                 <li class="nav-item active" style="padding-right: 60px;">
                     <a>
-                        <span>
+                        <span style="color: white; font-size: 20pt">
                            <%= nombre%>
                         </span>
                     </a>
@@ -33,7 +33,7 @@
             <ul class="navbar-nav ml-auto" id="navbarSupportedContent">
                 <li id="btn-salir" class="nav-item active">
                     <form action="/examen/borrarCookie" method="POST">
-                        <button type="submit" class="btn btn-primary" style="background-color: brown">Salir</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: azure; color:darkcyan;">Salir</button>
                         </button>
                     </form>
 
@@ -41,6 +41,7 @@
             </ul>
         </div>
     </nav>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -52,6 +53,23 @@
             </div>
         </div>
     </div>
+    <style>
+        .btn {
+            background-color: azure;
+            color: darkcyan;
+            border: 1px solid darkcyan;
+        }
+        
+        .btn:hover {
+            background-color: darkred;
+            color: azure;
+        }
+        
+        a {
+            border: 0px;
+            padding: 0px;
+        }
+    </style>
 </body>
 
 </html>

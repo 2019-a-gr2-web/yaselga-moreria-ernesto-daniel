@@ -23,45 +23,32 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-
-
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color:darkcyan">
         <a class="navbar-brand" href="/">Examen Web GR2</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item active" style="padding-right: 60px;">
                     <a>
-                        <span>
+                        <span style="color: white; font-size: 20pt">
                            <%= nombre%>
                         </span>
-
                     </a>
                 </li>
             </ul>
-
             <ul class="navbar-nav ml-auto" id="navbarSupportedContent">
                 <li id="btn-salir" class="nav-item active">
                     <form action="/examen/borrarCookie" method="POST">
-                        <button type="submit" class="btn btn-primary" style="background-color: lightblue">Salir</button>
-
+                        <button type="submit" class="btn btn-primary" style="background-color: azure; color:darkcyan;">Salir</button>
+                        </button>
                     </form>
 
                 </li>
             </ul>
         </div>
-
-
-
-
-
-
     </nav>
-
-
 
     <div class="container">
         <div class="row">
@@ -126,11 +113,11 @@
                             </td>
                             <td>
                                 <a href="/examen/Estudiante/gestionarMaterias/<%=Estudiantes.id%>">
-                                    <button>Gestionar Materias</button>
+                                    <button class="btn">Gestionar Materias</button>
                                 </a>
                                 <form action="/examen/eliminar" method="post">
                                     <input id="id" name="id" type="number" value="<%= Estudiantes.id %>" hidden>
-                                    <button>Borrar</button>
+                                    <button class="btn">Borrar</button>
                                 </form>
                             </td>
                         </tr>
@@ -139,3 +126,23 @@
             </div>
         </div>
     </div>
+    <style>
+        .btn {
+            background-color: azure;
+            color: darkcyan;
+            border: 1px solid darkcyan;
+        }
+        
+        .btn:hover {
+            background-color: darkred;
+            color: azure;
+        }
+        
+        a {
+            border: 0px;
+            padding: 0px;
+        }
+    </style>
+</body>
+
+</html>

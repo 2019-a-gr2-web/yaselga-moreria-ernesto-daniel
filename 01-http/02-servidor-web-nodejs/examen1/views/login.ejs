@@ -14,19 +14,36 @@
 
 <body>
     <!-- header 1-6-->
-    <div class="container">
+    <div class="container" style="align-items: center">
         <div class="mt-5 d-flex justify-content-center">
             <form action="/examen/login" method="POST">
                 <div class="form-group">
-                    <label for="nombre">Nombre</label>
+                    <label for="nombre">Hola, Ingresa tu nombre para continuar</label>
                     <input class="form-control" id="nombre" name="nombre" type="text">
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">ENTRAR</button>
             </form>
 
             <br>
         </div>
     </div>
+    <style>
+        .btn {
+            background-color: azure;
+            color: darkcyan;
+            border: 1px solid darkcyan;
+        }
+        
+        .btn:hover {
+            background-color: darkred;
+            color: azure;
+        }
+        
+        a {
+            border: 0px;
+            padding: 0px;
+        }
+    </style>
 </body>
 
 </html>
