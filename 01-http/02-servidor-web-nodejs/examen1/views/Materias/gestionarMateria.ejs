@@ -23,39 +23,32 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-
-
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color:darkcyan">
         <a class="navbar-brand" href="/">Examen Web GR2</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item active" style="padding-right: 60px;">
                     <a>
-                        <span>
+                        <span style="color: white; font-size: 20pt">
                            <%= nombre%>
                         </span>
-
                     </a>
                 </li>
             </ul>
-
             <ul class="navbar-nav ml-auto" id="navbarSupportedContent">
                 <li id="btn-salir" class="nav-item active">
                     <form action="/examen/borrarCookie" method="POST">
-                        <button type="submit" class="btn btn-primary" style="background-color: lightblue">Salir</button>
-
+                        <button type="submit" class="btn" style="background-color: azure; color:darkcyan;">Salir</button>
+                        </button>
                     </form>
 
                 </li>
             </ul>
         </div>
     </nav>
-
-
 
     <div class="container">
         <div class="row">
@@ -73,15 +66,18 @@
                             <div class="col-md-3">
                                 <div class="d-flex justify-content-center">
 
-                                    <button type="submit" class=" mt-4 btn btn-primary">Buscar</button>
+                                    <button type="submit" class=" mt-4 btn">Buscar</button>
 
                                 </div>
                                 <div class="mt-3 d-flex justify-content-center">
                                     <a href="/examen/Estudiante/crearMateria/<%=id%>">
 
-                                        <button type="button" class="btn btn-primary">Crear</button>
+                                        <button type="button" class="btn">Crear</button>
 
                                     </a>
+                                </div>
+                                <div class="mt-3 d-flex justify-content-center">
+                                    <a href="/examen/gestionarEstudiante"><button type="button" class="btn">Volver</button></a>
                                 </div>
                             </div>
                         </div>
@@ -133,8 +129,8 @@
                             <td>
                                 <form action="/examen/Estudiante/eliminarMaterias" method="post">
                                     <input id="idMateria" name="idMateria" type="number" value="<%= materias.id %>" hidden>
-                                    <input id="EstudianteIdMateria" name="EstudianteIdMateria" type="number" value="<%= materias.EstudianteId %>" hidden>
-                                    <button>Borrar</button>
+                                    <input id="EstudianteIdMateria" name="EstudianteIdMateria" type="number" value="<%= materias.estudianteID %>" hidden>
+                                    <button class="btn">Borrar</button>
                                 </form>
                             </td>
                         </tr>
@@ -143,7 +139,23 @@
             </div>
         </div>
     </div>
-
+    <style>
+        .btn {
+            background-color: azure;
+            color: darkcyan;
+            border: 1px solid darkcyan;
+        }
+        
+        .btn:hover {
+            background-color: darkred;
+            color: azure;
+        }
+        
+        a {
+            border: 0px;
+            padding: 0px;
+        }
+    </style>
 
 </body>
 

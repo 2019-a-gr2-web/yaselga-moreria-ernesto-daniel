@@ -135,12 +135,13 @@ export class EstudianteController {
     @Post('/buscarEstudiante')
     buscarEstudiante(
         @Res() res,
-        @Body('busquedaEstudiante') busquedaEstudiante: string, 
+        @Body('busquedaEstudiantes') busquedaEstudiantes: string, 
         @Request() request) {
         const cookieSeg = request.signedCookies;
-        arregloEstudianteBusqueda=this.estudianteService.buscarPorNombre(busquedaEstudiante);
+        console.log("busqueda: ",busquedaEstudiantes);
+        arregloEstudianteBusqueda=this.estudianteService.buscarPorNombre(busquedaEstudiantes);
         console.log('imprimiendo arreglo estudiantes:',arregloEstudianteBusqueda);
-        if(busquedaEstudiante!=null){
+        if(busquedaEstudiantes!=null){
             if (cookieSeg.nombreUsuario) {
                 res.redirect('/examen/gestionEstudiante');
             }
