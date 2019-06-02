@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<style>
+    table,
+    tr,
+    td,
+    th {
+        border: solid black 1px;
+    }
+</style>
+
+<head>
+    <title>Gestion Materias</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/Imagenes/dropbox.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+
+        <a class="navbar-brand" href="/">Examen Web GR2</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item active" style="padding-right: 60px;">
+                    <a>
+                        <span>
+                           <%= nombre%>
+                        </span>
+
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto" id="navbarSupportedContent">
+                <li id="btn-salir" class="nav-item active">
+                    <form action="/examen/borrarCookie" method="POST">
+                        <button type="submit" class="btn btn-primary" style="background-color: lightblue">Salir</button>
+
+                    </form>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/examen/Estudiante/buscarMateria/" method="POST">
+
+                    <div class="mt-5 d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="busquedaMaterias">Búsqueda</label>
+                                    <input class="form-control" id="busquedaMaterias" name="busquedaMaterias" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="d-flex justify-content-center">
+
+                                    <button type="submit" class=" mt-4 btn btn-primary">Buscar</button>
+
+                                </div>
+                                <div class="mt-3 d-flex justify-content-center">
+                                    <a href="/examen/Estudiante/crearMateria/<%=id%>">
+
+                                        <button type="button" class="btn btn-primary">Crear</button>
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+
+
+
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <table class="ml-5">
+                    <tr>
+                        <th>Numero Materia</th>
+                        <th>Codigo</th>
+                        <th>Descripcion</th>
+                        <th>Horas x Semana</th>
+                        <th>Fecha de Creacion</th>
+                        <th>Activo</th>
+                        <th>Id Estudiante</th>
+                        <th>Opciones</th>
+                    </tr>
+                    <% arregloMaterias.forEach((materias)=>{ %>
+                        <tr>
+                            <td>
+                                <%= materias.codigo %>
+                            </td>
+                            <td>
+                                <%= materias.nombre %>
+                            </td>
+                            <td>
+                                <%= materias.descripcion %>
+                            </td>
+                            <td>
+                                <%= materias.numeroHorasPorSemana %>
+                            </td>
+                            <td>
+                                <%= materias.fecha_Creacion %>
+                            </td>
+                            <td>
+                                <%= materias.activo %>
+                            </td>
+                            <td>
+                                <%= materias.estudianteID %>
+                            </td>
+                            <td>
+                                <form action="/examen/Estudiante/eliminarMaterias" method="post">
+                                    <input id="idMateria" name="idMateria" type="number" value="<%= materias.id %>" hidden>
+                                    <input id="EstudianteIdMateria" name="EstudianteIdMateria" type="number" value="<%= materias.EstudianteId %>" hidden>
+                                    <button>Borrar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
