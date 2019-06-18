@@ -21,7 +21,9 @@ export class TragosEntity {
     tipo: 'Ron'|'Vodka'|'Whiskey'|'Tequila'|'Puntas'|'Cerveza';
 
     @Column({
-        type: 'int',
+        type: 'decimal',
+        precision: 10,
+        scale:2,
         name: 'grados_alcohol',
     })
     gradosalcohol: number;

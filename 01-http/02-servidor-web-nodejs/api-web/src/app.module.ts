@@ -5,12 +5,13 @@ import { TragosModule } from "./tragos/tragos.module";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TragosEntity } from "./tragos/tragos.entity";
 
+
 @Module({
   imports: [TragosModule,TypeOrmModule.forRoot({
     name: 'default',
     type: 'mysql',
     host: 'localhost',
-    port: 32773,
+    port: 32769,
     username: 'root',
     password: 'root',
     database: 'prueba',
