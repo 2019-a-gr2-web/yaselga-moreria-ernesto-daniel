@@ -2,6 +2,8 @@ import {Body, Controller, Get, Post, Res} from "@nestjs/common";
 import {TragosService} from "./tragos.service";
 import {Trago} from "./interfaces/tragos";
 import {type} from "os";
+import { validate } from "class-validator";
+import { TragosCreateDto } from "./dto/tragos.create.dto";
 
 
 @Controller('api/traguito')
@@ -42,10 +44,32 @@ export class TragosContoller {
         trago.fecha_caducidad = new Date(trago.fecha_caducidad);
         console.log('Trago:',trago);
 
+        // trago.fechaCaducidad = trago.fechaCaducidad ? new Date(trago.fechaCaducidad) : undefined;
+
+        let tragoAValidar = new TragosCreateDto();
+
+        tragoAValidar.nombre = trago.nombre;
+        tragoAValidar.tipo = trago.tipo;
+        tragoAValidar.fecha_caducidad = trago.fecha_caducidad;
+        tragoAValidar.precio = trago.precio;
+        tragoAValidar.gradosalcohol = trago.gradosalcohol;
+
         try{
-            const respuestacrear =  await this._tragosService.crear(trago);
-            console.log('RESPUESTA',respuestacrear);
-            res.redirect('/api/traguito/lista');
+            const errores = await validate(tragoAValidar);
+
+            if (errores.length > 0) {
+
+                console.error(errores);
+                res.redirect('/api/traguito/crear?mensaje=Tienes un error en el formulario');
+
+            } else {
+
+                const respuestaCrear = await this._tragosService
+                    .crear(trago); // Promesa
+                console.log('RESPUESTA: ', respuestaCrear);
+                res.redirect('/api/traguito/lista');
+            }
+
         }
         catch(e){
             console.error(e);

@@ -1,3 +1,7 @@
+<% const nombreUsuario = 'Ernesto';%>
+
+<%- include('../componentes/menu/menu'),{nombre:nombreUsuario}%>
+
 <p>Crea un nuevo trago.</p>
 <form
         action="/api/traguito/crear"
