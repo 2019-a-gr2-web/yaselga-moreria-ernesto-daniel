@@ -10,7 +10,9 @@ import {
     Param,
     Body,
     Request,
-    Response
+    Response,
+    Session,
+    Res
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import {response} from "express";
@@ -269,9 +271,55 @@ export class AppController {
 
   //EXAMEN 1 BIMESTRE
   @Get('examen')
-  login(@Response() res){
+  loginexamen(@Response() res){
       return res.render('examen1/login')
   }
+  
+  @Get('session')
+    session(
+        @Query('nombre') nombre,
+        @Session() session
+    ){
+        console.log(session);
+
+        session.autenticado = true;
+        session.nombreUsuario = nombre;
+
+        return 'ok';
+    }
+    @Get('login')
+    loginVista(
+        @Res() res
+    ){
+        res.render('componentes/login/login');
+    }
+    @Post('login')
+    login(
+        @Body() usuario ,
+        @Session() session,
+        @Res() res
+    ){
+        if(usuario.username === 'ernesto' && usuario.password=== '1028'){
+            //    QUE HACEMOS
+            session.username = usuario.username;
+            res.redirect('/api/protegida');
+        }else{
+            res.status(400);
+            res.send({mensaje:'Error login',error:400})
+        }
+    }
+    @Get('protegida')
+    protegida(
+        @Session() session,
+        @Res() res
+    ){
+        if(session.username){
+            res.render('componentes/login/protegida',{
+                nombre:session.username});
+        }else{
+            res.redirect('/api/login');
+        }
+    }
 
 }
 

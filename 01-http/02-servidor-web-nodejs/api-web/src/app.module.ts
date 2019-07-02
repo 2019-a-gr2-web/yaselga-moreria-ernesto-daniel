@@ -8,14 +8,16 @@ import { DistribuidorModule } from './fiesta/fiesta.module';
 import { FiestaModule } from './distribuidor/distribuidor.module';
 import { DistribuidorEntity } from './distribuidor/distribuidor.entity';
 import { FiestaEntity } from './fiesta/fiesta.entity';
+import { ChatGateway } from './chat/chat.gateway';
 
 
 @Module({
   imports: [
-    TragosModule,
-    DistribuidorModule,
-    FiestaModule,
-    TypeOrmModule.forRoot({
+    ChatGateway
+    //TragosModule,
+    //DistribuidorModule,
+    //FiestaModule,
+    /*TypeOrmModule.forRoot({
     name: 'default',
     type: 'mysql',
     host: 'localhost',
@@ -29,7 +31,8 @@ import { FiestaEntity } from './fiesta/fiesta.entity';
       FiestaEntity],
     synchronize: true,
     insecureAuth : true
-}),],
+}),*/
+],
   controllers: [AppController],
   providers: [AppService],
 })

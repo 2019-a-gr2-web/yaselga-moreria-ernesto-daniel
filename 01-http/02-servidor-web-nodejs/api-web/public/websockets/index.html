@@ -1,0 +1,47 @@
+<html>
+    
+    <head>
+        <title>WebSockets</title>
+    </head>
+    <body>
+        <!--<script src="/01-http/02-servidor-web-nodejs/api-web/public/websockets/socket.io.js"></script>-->
+        <script src="/websockets/socket.io.js"></script>
+        <script>
+            //const url = 'http://172.26.189.218:3001/websockets';
+            const url = 'http://127.0.0.1:3001/websockets';
+            const socket = io(url);
+            console.log('Estableciendo conexion')
+            socket.on(
+                'connect', //nombre del evento
+                ()=>{
+                    console.log('Conexcion establecida')
+                    /*socket.disconnect();
+                    setTimeout(
+                        ()=>{
+                            socket.connect();
+                        },3000
+                    )*/
+                }
+                );
+                socket.on(
+                'disconnect', //nombre del evento
+                ()=>{
+                    console.log('Conexcion terminada');
+                }
+                );
+
+                socket.on('saludaron',
+                ()=>{console.log('Nos saludaron');})
+                function peticionHolaMundo(){
+                    const nombreMetodo= 'holaMundo'
+                    const datos = {nombre: 'Ernesto'}
+                    socket.emit(
+                        nombreMetodo, //Primer parametro: Nombre del evento
+                        datos,//Segundo parametro: Datos
+                        (respuesta)=>{console.log(respuesta);} //Tercer parametro: Callback/Respuesta
+                    )
+                }
+
+        </script>
+    </body>
+</html>
