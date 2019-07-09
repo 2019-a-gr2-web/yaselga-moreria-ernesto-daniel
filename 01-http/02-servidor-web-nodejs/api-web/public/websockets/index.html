@@ -1,11 +1,64 @@
 <html>
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
     <head>
         <title>WebSockets</title>
     </head>
     <body>
+        <h1 id="titulo">CHAT EPN</h1>
+        <p class="par">Primero</p>
+        <p class="par" onclick="clickParrafo()">Segundo</p>
+        <div class="alert alert-primary text right" role ="alert" id="contenedor-chat">
+        </div>
+
+        <label for="chat-texto">Texto</label>
+        <input id="chat-texto" type="text">
+        <button onclick="enviarMensaje()">Enviar</button>
+
         <!--<script src="/01-http/02-servidor-web-nodejs/api-web/public/websockets/socket.io.js"></script>-->
         <script src="/websockets/socket.io.js"></script>
+        <script>
+            function enviarMensaje(){
+                const chatTexto = document.getElementById('chat-texto');
+                const texto = chatTexto.value;
+                console.log(texto);
+
+                const idContenedor = 'contenedor-chat';
+                const nombreEtiquetaHTMLchat = "p";
+                const parrafo = document
+                .createElement(nombreEtiquetaHTMLchat);
+                const contenidoHTML = `
+        <div class="alert alert-primary text-right" role="alert">
+          ${texto}
+        </div>
+        `;
+        parrafo.innerHTML = contenidoHTML;
+                anadirEtiqueta(idContenedor,parrafo);
+                peticionHolaMundo(texto);
+
+                chatTexto.value="";
+                chatTexto.focus();
+            }
+            function anadirEtiqueta(idEtiqueta, elementoHTML){
+                const etiquta = document.getElementById(idEtiqueta);
+                etiquta.appendChild(elementoHTML);
+            }
+            
+        </script>
+
+        <script>
+            const titulo = document.getElementById('titulo');
+            titulo.style.backgroundColor = 'green';
+            titulo.onclick = ()=>{
+                console.log('Diste click al titulo :o');
+            }
+            titulo.onmouseenter = ()=>{
+                console.log('Deja de mousnosear el titulo');
+            }
+            function clickParrafo(){
+                alert('¡CUIDADO!');
+            }
+        </script>
+
         <script>
             //const url = 'http://172.26.189.218:3001/websockets';
             const url = 'http://127.0.0.1:3001/websockets';
@@ -24,23 +77,35 @@
                 }
                 );
                 socket.on(
-                'disconnect', //nombre del evento
-                ()=>{
-                    console.log('Conexcion terminada');
-                }
-                );
-
-                socket.on('saludaron',
-                ()=>{console.log('Nos saludaron');})
-                function peticionHolaMundo(){
-                    const nombreMetodo= 'holaMundo'
-                    const datos = {nombre: 'Ernesto'}
-                    socket.emit(
-                        nombreMetodo, //Primer parametro: Nombre del evento
-                        datos,//Segundo parametro: Datos
-                        (respuesta)=>{console.log(respuesta);} //Tercer parametro: Callback/Respuesta
-                    )
-                }
+        'saludaron', // nombre del evento
+        (data) => {
+            console.log('Nos saludaron.', data);
+            const nombreContenedor = 'contenedor-chat';
+            const nombreEtiqueta= 'p';
+            const parrafo = document
+                 .createElement(nombreEtiqueta);
+            const HTMLParrafo = `
+            <div class="alert alert-secondary" role="alert">
+              ${data.nombre}
+            </div>
+            `;
+            parrafo.innerHTML = HTMLParrafo;
+            anadirEtiqueta(nombreContenedor,parrafo);
+        }
+    );
+    function peticionHolaMundo(texto) {
+        const nombreMetodo = 'holaMundo';
+        const datos = {
+            nombre: texto
+        };
+        socket.emit(
+            nombreMetodo,
+            datos,
+            (respuesta) => { //calback
+                console.log(respuesta);
+            }
+        );
+    }
 
         </script>
     </body>
