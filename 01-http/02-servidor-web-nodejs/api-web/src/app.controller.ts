@@ -12,13 +12,15 @@ import {
     Request,
     Response,
     Session,
-    Res
+    Res,
+    Render,
+    UseInterceptors,
+    UploadedFile
 } from '@nestjs/common';
 import { AppService } from './app.service';
-import {response} from "express";
-import {reduce, retry} from "rxjs/operators";
 import * as joi from '@hapi/joi';
 import useRealTimers = jest.useRealTimers;
+import { FileInterceptor } from '@nestjs/platform-express';
 //import {constants} from "http2";
 
 
@@ -28,6 +30,44 @@ import useRealTimers = jest.useRealTimers;
 @Controller('/api')
 export class AppController {
   constructor(private readonly appService: AppService) {}
+
+    @Get('subirArchivo/:idTrago')
+    @Render('archivo')
+    subirArchivo(
+        @Param('idTrago') idTrago
+        
+    ){
+        return{idTrago: idTrago};
+    }
+    @Post('subirArchivo/:idTrago')
+    @UseInterceptors(
+        FileInterceptor(
+            'imagen',
+            {
+                dest: __dirname + '/../archivos'
+            }
+        )
+    )
+    subirArchivoPost(
+        @Param('idTrago')idTrago,
+        @UploadedFile() archivo
+        ){
+            console.log(archivo);
+            return {mensaje:'ok'};
+    }
+    
+    @Get('descargarArchivo/:idTrago')
+    descargarArchivo(
+        @Res() res,
+        @Param('idTrago',) idTrago
+    ){
+        const originalname = 'ObiwanAnakin.png';
+        const path= '/home/ernesteins/Documentos/yaselga-moreria-ernesto-daniel/01-http/02-servidor-web-nodejs/api-web/archivos/1047b23d0701acbec1e1f906ded1c982';
+        res.download(path,originalname);
+    }
+
+
+
 //@Get(SegmentoAccion)
   @Get('/hello-world') //Método HTTP
   getHello(): string {

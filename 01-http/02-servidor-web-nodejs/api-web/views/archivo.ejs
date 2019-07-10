@@ -1,0 +1,70 @@
+<img 
+    id="imagen-muestra"
+    src="127.0.0.1:3000/api/descargarArchivo/<%=idTrago%>"
+    width="400"
+    length ="400"
+    alt="">
+
+<form 
+        action="/api/subirArchivo/<%=idTrago%>"
+        method="post"
+        enctype="multipart/form-data"
+>
+    <label id="texto-archivo" for="archivo" class="boton boton-sinseleccion">
+        Seleccionar Archivo
+    </label>
+    <input 
+            id= "archivo" 
+            type="file" 
+            hidden
+            name="imagen" 
+            accept=".png , .jpg" 
+            multiple
+            onchange="validarArchivos()">
+
+    <button>Subir archivo</button>
+</form>
+<script>
+    function validarArchivos(){
+        const archivo = document.getElementById('archivo');
+        console.log(archivo.files);
+        const label = document.getElementById('texto-archivo')
+        if(archivo.files.length>0){
+            label.className = 'boton boton-seleccionado';
+            label.innerText = 'Archivo seleccionados';
+        }else{
+            label.className = 'boton boton-sinseleccion';
+            label.innerText = 'Seleccionar Archivo';
+        }
+        //res.render('/api/descargarArchivo');
+    }
+    //Vista Previa - inicio
+    const file = archivo.files[0];
+            const reader = new FileReader();
+            reader.onload = (eventoLecturaArchivo) => {
+                console.log(eventoLecturaArchivo.target.result);
+                const url = eventoLecturaArchivo.target.result;
+
+                const imagenMuestra = document.getElementById('imagen-muestra');
+                imagenMuestra.src = url;
+                
+            };
+            reader.readAsDataURL(file);
+            
+    //Vista Previa - fin
+
+</script>
+<style>
+.boton{
+    border: solid black 2px;
+}
+.boton-seleccionado{
+    color:white;
+    background-color: lightgreen;
+}
+.boton-sinseleccion{
+    color:white;
+    background-color: black;
+}
+</style>
+
