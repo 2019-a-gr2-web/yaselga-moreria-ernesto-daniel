@@ -9,11 +9,13 @@ import { FiestaModule } from './distribuidor/distribuidor.module';
 import { DistribuidorEntity } from './distribuidor/distribuidor.entity';
 import { FiestaEntity } from './fiesta/fiesta.entity';
 import { ChatGateway } from './chat/chat.gateway';
+import { TriviaGateway } from './trivia/trivia.gateway';
 
 
 @Module({
   imports: [
-    ChatGateway
+    ChatGateway,
+    TriviaGateway
     //TragosModule,
     //DistribuidorModule,
     //FiestaModule,

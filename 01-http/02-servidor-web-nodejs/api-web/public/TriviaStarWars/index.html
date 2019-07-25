@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<head>
+  <meta charset="utf-8">
+  <title>TRIVIA STAR WARS</title>
+</head>
+
+<body>
+  <h1>TRIVIA STAR WARS</h1>
+  <div>
+    <label for="nombre-participante">Ingresa tu nombre</label>
+    <input id="nombre-participante" type="text">
+    <button onclick="setname()">Enviar</button>
+  </div>
+
+  <div class="alert alert-primary text right" role="alert" id="saludo"></div>
+
+  <div class="alert alert-primary text right" role="alert" id="contenedor-chat"></div>
+  <p>
+    <label id="numpregunta-label" for="numpregunta">Pregunta no: </a>
+      <input id="numpregunta" type="number" disabled></a>
+  </p>
+  <p>
+    <label id="chat-texto-label" for="chat-texto" hidden=true>Ingresa tu respuesta</label>
+    <input id="chat-texto" type="text" hidden>
+    <button id="chat-texto-button" onclick="enviarMensaje()" hidden>Enviar</button>
+  </p>
+
+
+  <script src="/websockets/socket.io.js"></script>
+
+  <script>
+
+    function setname() {
+      document.getElementById('chat-texto').removeAttribute("hidden")
+      document.getElementById('chat-texto-label').removeAttribute("hidden")
+      document.getElementById('chat-texto-button').removeAttribute("hidden")
+      const nombre = document.getElementById('nombre-participante').value;
+      const saludo = document.createElement("p");
+      const contenidoHTML = `
+    <div class="alert alert-primary text-right" role="alert">
+      Hola padawan ${nombre}
+    </div>
+    `;
+      saludo.innerHTML = contenidoHTML;
+      document.getElementById("saludo").appendChild(saludo);
+
+      trivia(nombre, "0", "");
+    }
+
+    function enviarMensaje() {
+      const numpregunta = document.getElementById('numpregunta').value;
+      const nombre = document.getElementById('nombre-participante').value;
+      const texto = document.getElementById('chat-texto');
+      const respuesta = texto.value;
+
+      console.log(respuesta + ' - ' + numpregunta + ' - ' + nombre);
+
+      //document.getElementById('chat-texto').removeAttribute("hidden")
+      //document.getElementById('chat-texto-label').removeAttribute("hidden")
+      //document.getElementById('chat-texto-button').removeAttribute("hidden")
+
+      const idContenedor = 'contenedor-chat';
+      const nombreEtiquetaHTMLchat = "p";
+      const parrafo = document.createElement(nombreEtiquetaHTMLchat);
+
+      const contenidoHTML = `
+      <div class="alert alert-primary text-right" role="alert">
+        ${respuesta}
+      </div>
+      `;
+      parrafo.innerHTML = contenidoHTML;
+      anadirEtiqueta(idContenedor, parrafo);
+      trivia(nombre, numpregunta, respuesta);
+
+      texto.value = "";
+      texto.focus();
+    }
+    function anadirEtiqueta(idEtiqueta, elementoHTML) {
+      const etiquta = document.getElementById(idEtiqueta);
+      etiquta.appendChild(elementoHTML);
+    }
+
+    //const url = 'http://172.26.189.218:3001/websockets';
+    const url = 'http://127.0.0.1:3001/TriviaStarWars';
+    const socket = io(url);
+    console.log('Estableciendo conexion')
+
+    socket.on(
+      'connect', //nombre del evento
+      () => {
+        console.log('Conexcion establecida')
+      }
+    );
+    socket.on('respuesta',
+      (confirmacion) => {
+        console.log("Confirmacion: ",confirmacion)
+        const nombreContenedor = 'contenedor-chat';
+        const nombreEtiqueta = 'p';
+        const parrafo = document.createElement(nombreEtiqueta);
+        var HTMLParrafo;
+        if (confirmacion === true) {
+          HTMLParrafo = `
+       <div class="alert alert-success text-right" role="alert">
+        Correcto
+       </div>
+       `;
+        }else{
+          HTMLParrafo = `
+       <div class="alert alert-danger text-right" role="alert">
+        Inorrecto
+       </div>
+       `;
+        }
+        parrafo.innerHTML = HTMLParrafo;
+        anadirEtiqueta(nombreContenedor, parrafo);
+      });
+
+    socket.on(
+      'pregunta',//<- recibe una pregunta
+      (data) => { //<- accion ante el evento
+        console.log('pregunta #', data.numpregunta)
+        const nombreContenedor = 'contenedor-chat';
+        const nombreEtiqueta = 'p';
+        const parrafo = document
+          .createElement(nombreEtiqueta);
+        const HTMLParrafo = `
+       <div class="alert alert-secondary" role="alert">
+        Pregunta #${data.numpregunta}: ${data.pregunta}
+       </div>
+       `;
+        parrafo.innerHTML = HTMLParrafo;
+        document.getElementById("numpregunta").value = data.numpregunta;
+        anadirEtiqueta(nombreContenedor, parrafo);
+      }
+    );
+
+    function trivia(nombre, numpregunta, respuesta) {
+      const nombreMetodo = 'start';
+      const datos = {
+        nombre: nombre,
+        numpregunta: numpregunta,
+        respuesta: respuesta
+      };
+      console.log("datos enviados: ", nombreMetodo + ' ', datos);
+      socket.emit(
+        nombreMetodo,
+        datos,
+        (respuesta) => { //calback
+          console.log(respuesta);
+        }
+      );
+
+    }
+
+  </script>
+
+
+</body>
+
+</html>
