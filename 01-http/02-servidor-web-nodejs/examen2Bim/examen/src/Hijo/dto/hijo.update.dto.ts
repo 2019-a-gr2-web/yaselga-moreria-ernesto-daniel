@@ -2,16 +2,22 @@ import {IsDate, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString} from "class
 import { TiendaEntity } from "../../Padre/padre.entity";
 
 
-export class ProductosCreateDto{
+export class ProductosUpdateDto{
 
-    @IsEmpty()
+    @IsNotEmpty()
+    @IsNumber()
     productoId?:number;
+
+    @IsNotEmpty()
+    @IsString()
+    nombre:string;
 
     @IsString()
     @IsOptional()
     descripcion:string;
 
     @IsNumber()
+    @IsNotEmpty()
     precio:number;
     
     @IsDate()
@@ -24,5 +30,6 @@ export class ProductosCreateDto{
 
     @IsNotEmpty()
     TiendaId:TiendaEntity;
+
 
 }

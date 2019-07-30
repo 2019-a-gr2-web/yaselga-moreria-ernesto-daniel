@@ -26,6 +26,15 @@ export class ProductosService {
             productoId:id
         });
     }
+    async editar(ProductoModificado:ProductoEntity):Promise<Object>{
+        
+        const ProductoActual = await this._productoRepository.findOne(ProductoModificado.productoId);
+        console.log("Producto Actual: ", ProductoActual);
+        console.log("Producto Nuevo: ", ProductoModificado);
+        ProductoModificado.productoId = ProductoActual.productoId;
+        return this._productoRepository.save(ProductoModificado);
+
+    }
 
     buscar(parametrosBusquedaNombre?,fechaBusqueda?):Promise<ProductoEntity[]>{
         if(parametrosBusquedaNombre!=""&&fechaBusqueda!=""){
@@ -47,7 +56,7 @@ export class ProductosService {
             }
         }
     }
-    buscarXid(id?:number):Promise<object>{
+    buscarXid(id?:number):Promise<ProductoEntity[]>{
         return this._productoRepository.find({
             productoId:id
         });

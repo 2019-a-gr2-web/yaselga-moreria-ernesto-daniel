@@ -2,6 +2,7 @@ import { Controller, Get, Res, Req, Session, Body, Post, Query } from "@nestjs/c
 import { ProductosService } from "./hijo.service";
 import { LoginService } from "../Login/login.service";
 import { ProductosCreateDto } from "./dto/hijo.create.dto";
+import { ProductosUpdateDto } from "./dto/hijo.update.dto";
 import { ProductoEntity } from "./hijo.entity";
 import { validate } from "class-validator";
 
@@ -146,31 +147,89 @@ export class ProductoController {
         }
 
     }
-
+    
     @Post('editar/:idPadre')
     async editar(
         @Res() res,
         @Req() req,
+        @Query() query,
         @Body('productoId') productoId: number,
         @Session() session
     ) {
         console.log(productoId)
-
         try {
+            let mensaje = "";
+            if(query.mensaje!=""){
+                mensaje=query.mensaje;
+            }
             //const respuestaEditar=await this._productosService.eliminarPorId(productoId);
             const producto = await this._productosService.buscarXid(productoId)
-            res.render('Administrador/crear-editar.ejs', {
+            console.log("InfoProductoExtraido",producto);
+            res.render('Administrador/actualizar.ejs', {
                 //usuario:req.signedCookies.usuario,
+                producto: producto[0],
                 usuario: session.username,
                 idPadre: req.params.idPadre,
-                
-
+                mensaje: mensaje,
+                //nombre: producto[0].nombre, 
             });
-
         } catch (e) {
             console.error(e)
         }
+    }
 
+    @Post('editarEnvio/:idPadre/:idHijo')
+    async editarPost(
+        @Res() res,
+        @Body() producto: ProductoEntity,
+        @Req() req
+    ) {
+        console.log("ha llegado el producto modificado:  ",producto);
+        //producto.productoId = req.params.idHijo;
+        producto.TiendaId = req.params.idPadre;
+        
+        producto.productoId = Number(producto.productoId); 
+
+        //producto.tiendaId = Number(producto.tiendaId);
+        producto.precio = Number(producto.precio);
+        producto.aniosGarantia = Number(producto.aniosGarantia);
+        producto.fechaLanzamiento = producto.fechaLanzamiento ? new Date(producto.fechaLanzamiento) : undefined;
+
+        console.log("transformado:  ",producto);
+        
+        //console.log(producto);
+        let productoValidar = new ProductosUpdateDto()
+
+        productoValidar.nombre = producto.nombre;
+        productoValidar.fechaLanzamiento = producto.fechaLanzamiento;
+        productoValidar.aniosGarantia = producto.aniosGarantia;
+        productoValidar.descripcion = producto.descripcion
+        productoValidar.precio = producto.precio;
+        productoValidar.TiendaId = producto.TiendaId;
+        try {
+            const errores = await validate(productoValidar);
+            console.log("error: ",errores);
+            if (errores.length > 0) {
+                const valores = (<ProductosUpdateDto>errores[0].target)
+
+                const campos = []
+                errores.forEach(value => {
+                    console.log(value.property);
+                    campos.push(value.property);
+                });
+                const inputs = "&nombre=" + valores.nombre + "&fechaLanzamiento=" + valores.fechaLanzamiento + "&aniosGarantia=" + valores.aniosGarantia + "&precio=" + valores.precio + "&descripcion=" + valores.descripcion
+                res.redirect('/api/tienda/gestion/editar/' + Number(req.params.idPadre) + "?mensaje=Complete los campos obligatorios " + inputs);
+            } else {
+                const respuestaCrear = await this._productosService.editar(producto);
+                res.redirect('/api/tienda/gestion/' + Number(req.params.idPadre));
+            }
+
+
+        } catch (e) {
+            //console.error(e);
+            res.status(500);
+            res.send({ mensaje: 'Error', codigo: 500 });
+        }
     }
 
     @Post('buscar/:idPadre')
