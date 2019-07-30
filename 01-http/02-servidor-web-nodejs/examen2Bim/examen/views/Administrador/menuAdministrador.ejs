@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Compra Peliculas</title>
+    <title>Gestion de Locales</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .espacio{
@@ -48,23 +48,24 @@
             <table class="table table-md table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>Peliculas</th>
-                    <th>Activo</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>FechaApertura</th>
+                    <th>Productos</th>
+                    <th>Matriz</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <% listaActores.forEach((actor)=>{ %>
+                <% listaTiendas.forEach((tienda)=>{ %>
                     <tr>
-                        <td><%= actor.nombres %></td>
-                        <td><%= actor.apellidos %></td>
-                        <td><%= actor.fechaNacimiento %></td>
-                        <td><%= actor.numeroPeliculas %></td>
-                        <td><%if(actor.retirado){%>
+                        <td><%= tienda.nombre%></td>
+                        <td><%= tienda.direccion%></td>
+                        <td><%= tienda.fechaApertura%></td>
+                        <td><%= tienda.productos%></td>
+                        <!--<td><%= tienda.Matriz%></td>-->
+                        <td><%if(tienda.Matriz){%>
                                 <input type="checkbox" disabled>
                             <%}else{%>
                                 <input type="checkbox" checked disabled>
@@ -72,9 +73,9 @@
                         </td>
                         <td>
                             <form action="/api/tienda/eliminar" method="post">
-                                <input type="text" name="padreId" hidden value="<%=actor.actorId%> ">
-                                <a href="http://localhost:3000/api/actor/gestion/<%=actor.actorId%>">
-                                    <button type="button" class="btn btn-xs btn-info">Gestionar Peliculas</button>
+                                <input type="text" name="padreId" hidden  value="<%=tienda.TiendaId%>">
+                                <a href="http://localhost:3000/api/tienda/gestion/<%=tienda.TiendaId%>">
+                                    <button type="button" class="btn btn-xs btn-info">Productos</button>
                                 </a>
                             </form>
                         </td>

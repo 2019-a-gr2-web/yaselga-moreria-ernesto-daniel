@@ -42,7 +42,7 @@ export class AppController {
         signed: true
       }).render('login.ejs');
   }
-/*
+
   @Post('ingresar')
   ingresar(
     @Body() body,
@@ -76,6 +76,7 @@ export class AppController {
       case 1: {
         try {
           const listaTiendas = await this._tiendaService.findAll();
+          console.log(listaTiendas);
           res.render('Administrador/menuAdministrador.ejs', {
             usuario: session.username,
             tipoRol: req.signedCookies.tipoRol,
@@ -176,6 +177,6 @@ export class AppController {
       console.log(e)
     }
 
-  }*/
+  }
 
 }

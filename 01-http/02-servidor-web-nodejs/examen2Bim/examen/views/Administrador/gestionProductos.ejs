@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Compra Peliculas</title>
+    <title>Compra Productos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .espacio{
@@ -32,7 +32,7 @@
     </div>
     <div class="espacio"></div>
     <div class="col-sm-12">
-        <form action="/api/actor/gestion/buscar/<%=idPadre%>" class="form-horizontal" method="post">
+        <form action="/api/tienda/gestion/buscar/<%=idPadre%>" class="form-horizontal" method="post">
             <div class="form-group row">
                 <div class="col-sm-12">
                     <input type="date" class="form-control" id="fechaBusquedaId" placeholder="Busqueda" name="fechaBusqueda">
@@ -47,7 +47,7 @@
     <div class="col-sm-12">
         <div class="form-group row text-right">
             <div class="col-sm-12">
-                <a href="http://localhost:3000/api/actor/gestion/crear/<%=idPadre%>">
+                <a href="http://localhost:3000/api/tienda/gestion/crear/<%=idPadre%>">
                     <button type="button" class="btn btn-sm btn-primary">Crear</button>
                 </a>
             </div>
@@ -60,32 +60,32 @@
                 <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Anio Lanzamiento</th>
-                    <th>Rating</th>
-                    <th>Actores Principales</th>
-                    <th>Sinopsis</th>
+                    <th>Año de Lanzamiento</th>
+                    <th>Precio</th>
+                    <th>Años de Garantia</th>
+                    <th>Descripcion</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
 
                 <tbody>
 
-                <% listaPeliculas.forEach((peliculas)=>{ %>
+                <% listaProductos.forEach((productos)=>{ %>
                     <tr>
-                        <td><%= peliculas.nombre %></td>
-                        <td><%= peliculas.anioLanzamiento %></td>
-                        <td><%= peliculas.rating %></td>
-                        <td><%= peliculas.actoresPrincipales %></td>
-                        <td><%= peliculas.sinopsis%> </td>
+                        <td><%= productos.nombre %></td>
+                        <td><%= productos.fechaLanzamiento %></td>
+                        <td><%= productos.precio %></td>
+                        <td><%= productos.aniosGarantia %></td>
+                        <td><%= productos.descripcion%> </td>
                         <td>
-                            <form action="/api/actor/gestion/eliminar/<%=idPadre%>" method="post">
-                                <input type="text" name="peliculaId" hidden value="<%=peliculas.peliculaId%> ">
+                            <form action="/api/tienda/gestion/eliminar/<%=idPadre%>" method="post">
+                                <input type="text" name="productoId" hidden value="<%=productos.productoId%> ">
                                 <button type="submit" class="btn btn-xs btn-info">Borrar</button>
                             </form>
-                            <form action="/api/actor/gestion/editar/<%=idPadre%>" method="post">
-                                <input type="text" name="peliculaId" hidden value="<%=peliculas.peliculaId%> ">
+                            <!--<form action="/api/tienda/gestion/editar/<%=idPadre%>" method="post">
+                                <input type="text" name="productoId" hidden value="<%=productos.productoId%> ">
                                 <button type="submit" class="btn btn-xs btn-info">Editar</button>
-                            </form>
+                            </form>-->
                         </td>
                     </tr>
                 <% })%>

@@ -35,7 +35,7 @@ export class ProductoEntity{
         type => TiendaEntity,
         tienda=> tienda.productos
         )
-        tiendaId:TiendaEntity;
+        TiendaId:TiendaEntity;
 
     @OneToMany(
         type => DetalleEntity,

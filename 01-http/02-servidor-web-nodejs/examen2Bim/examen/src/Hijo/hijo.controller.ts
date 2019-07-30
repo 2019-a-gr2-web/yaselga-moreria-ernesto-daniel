@@ -5,7 +5,7 @@ import { ProductosCreateDto } from "./dto/hijo.create.dto";
 import { ProductoEntity } from "./hijo.entity";
 import { validate } from "class-validator";
 
-@Controller('api/producto/gestion')
+@Controller('api/tienda/gestion')
 export class ProductoController {
     constructor(
         private readonly _productosService: ProductosService,
@@ -41,6 +41,7 @@ export class ProductoController {
         @Session() session
 
     ) {
+        //console.log("Ha llegado: ",query);
         const hoy = new Date();
 
         let fecha;
@@ -84,9 +85,15 @@ export class ProductoController {
         @Body() producto: ProductoEntity,
         @Req() req
     ) {
-        producto.fechaLanzamiento = producto.fechaLanzamiento ? new Date(producto.fechaLanzamiento) : undefined;
-        producto.tiendaId = req.params.idPadre;
+        console.log("ha llegado el producto:  ",producto);
+        producto.TiendaId = req.params.idPadre;
+        //producto.tiendaId = Number(producto.tiendaId);
+        producto.precio = Number(producto.precio);
         producto.aniosGarantia = Number(producto.aniosGarantia);
+        producto.fechaLanzamiento = producto.fechaLanzamiento ? new Date(producto.fechaLanzamiento) : undefined;
+
+        console.log("transformado:  ",producto);
+        
         //console.log(producto);
         let productoValidar = new ProductosCreateDto()
 
@@ -95,9 +102,10 @@ export class ProductoController {
         productoValidar.aniosGarantia = producto.aniosGarantia;
         productoValidar.descripcion = producto.descripcion
         productoValidar.precio = producto.precio;
-        productoValidar.tiendaId = producto.tiendaId;
+        productoValidar.TiendaId = producto.TiendaId;
         try {
             const errores = await validate(productoValidar);
+            console.log("error: ",errores);
             if (errores.length > 0) {
                 const valores = (<ProductosCreateDto>errores[0].target)
 
@@ -146,17 +154,19 @@ export class ProductoController {
         @Body('productoId') productoId: number,
         @Session() session
     ) {
-        //console.log(productoId)
+        console.log(productoId)
 
         try {
             //const respuestaEditar=await this._productosService.eliminarPorId(productoId);
-
+            const producto = await this._productosService.buscarXid(productoId)
             res.render('Administrador/crear-editar.ejs', {
                 //usuario:req.signedCookies.usuario,
                 usuario: session.username,
                 idPadre: req.params.idPadre,
+                
 
             });
+
         } catch (e) {
             console.error(e)
         }

@@ -22,8 +22,9 @@ export class TiendaEntity{
     fechaApertura:Date;
 
     @Column({
+        length:13,
     })
-    RUC: number;
+    RUC: string; //number se sale del rango
 
     @Column({
         default:true,
@@ -32,7 +33,7 @@ export class TiendaEntity{
     
     @OneToMany(
         type => ProductoEntity,
-        producto => producto.tiendaId
+        producto => producto.TiendaId
         )
         productos:ProductoEntity[];
     

@@ -15,12 +15,12 @@ export class ProductosCreateDto{
     @IsOptional()
     descripcion:string;
 
-    @IsString()
-    @IsOptional()
+    @IsNumber()
+    @IsNotEmpty()
     precio:number;
     
-    @IsNotEmpty()
     @IsDate()
+    @IsOptional()
     fechaLanzamiento:Date;
 
     @IsNumber()
@@ -28,6 +28,6 @@ export class ProductosCreateDto{
     aniosGarantia:number;
 
     @IsNotEmpty()
-    tiendaId:TiendaEntity;
+    TiendaId:TiendaEntity;
 
 }

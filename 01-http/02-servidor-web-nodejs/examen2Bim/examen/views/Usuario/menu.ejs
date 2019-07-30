@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Compra Peliculas</title>
+    <title>Comprar en Linea</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
     <style>
@@ -23,13 +23,13 @@
 <div class="container">
     <div class="col-md-12 form-group">
         <div class="form-horizontal">
-            <form id="myForm" action="/api/actor/gestion/consultar-por-id/<%=idPedido%>" method="post">
-                <label class="col-xs-4 control-label" for="selectId">Actor: </label>
-                <select class="col-xs-6 form-control" name="actorId" id="selectId">
-                    <% listaActores.forEach((actor)=>{ %>
+            <form id="myForm" action="/api/tienda/gestion/consultar-por-id/<%=idPedido%>" method="post">
+                <label class="col-xs-4 control-label" for="selectId">Tienda: </label>
+                <select class="col-xs-6 form-control" name="tiendaId" id="selectId">
+                    <% listaTiendas.forEach((tienda)=>{ %>
 
-                        <option value="<%=actor.actorId%>"<%if(idActor==actor.actorId){%>selected<%}%>>
-                            <%=actor.nombres+" "+actor.apellidos%>
+                        <option value="<%=tienda.tiendaId%>"<%if(idTienda==tienda.tiendaId){%>selected<%}%>>
+                            <%=tienda.nombre%>
                         </option>
                     <% })%>
                 </select>
@@ -65,27 +65,27 @@
                 <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Anio Lanzamiento</th>
-                    <th>Rating</th>
-                    <th>Actores Principales</th>
-                    <th>Sinopsis</th>
+                    <th>Descipcion</th>
+                    <th>Precio</th>
+                    <th>Año de Lanzamiento</th>
+                    <th>Años de Garantia</th>
                     <th <%if (idPedido==0){%>class="hidden"<%}%>>Acciones</th>
                 </tr>
                 </thead>
 
-                <tbody id="bodyPeliculas">
+                <tbody id="bodyProductos">
 
-                <% listaPeliculas.forEach((peliculas)=>{ %>
+                <% listaProductos.forEach((productos)=>{ %>
                     <tr>
-                        <td><%= peliculas.nombre %></td>
-                        <td><%= peliculas.anioLanzamiento %></td>
-                        <td><%= peliculas.rating %></td>
-                        <td><%= peliculas.actoresPrincipales %></td>
-                        <td><%= peliculas.sinopsis%> </td>
+                        <td><%= productos.nombre %></td>
+                        <td><%= productos.descripcion %></td>
+                        <td><%= productos.precio %></td>
+                        <td><%= productos.fechaLanzamiento %></td>
+                        <td><%= productos.aniosGarantia%> </td>
                         <td <%if (idPedido==0){%>class="hidden"<%}%> >
                             <form action="/api/pedido/crear-detalle/<%=idPedido%>" method="post">
 
-                                <input type="text" name="peliculaId" hidden value="<%=peliculas.peliculaId%>">
+                                <input type="text" name="productoId" hidden value="<%=productos.productoId%>">
                                 <button type="submit" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">Agregar al carrito</button>
                             </form>
 

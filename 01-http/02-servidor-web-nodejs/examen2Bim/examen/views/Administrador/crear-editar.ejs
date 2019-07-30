@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Peliculas</title>
+    <title>Productos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .titulo{
@@ -36,7 +36,7 @@
     </div>
     <div class=" titulo col-sm-12">
         <div class="form-group text-center">
-            <h2>Crear Nueva Pelicula</h2>
+            <h2>Crear Nuevo Producto</h2>
         </div>
     </div>
     <%const existeMensaje=mensaje%>
@@ -44,42 +44,42 @@
         <h4 class="aviso"><%=mensaje%></h4>
     <%}%>
     <div class="col-sm-12">
-        <form action="/api/actor/gestion/crear/<%=idPadre%>" class="form-horizontal" method="post">
+        <form action="/api/tienda/gestion/crear/<%=idPadre%>" class="form-horizontal" method="post">
             <div class="form-group row">
-                <label for="nombreId" class="control-label col-sm-2">Nombre: * </label>
+                <label for="nombreId" class="control-label col-sm-2">Nombre:*</label>
                 <div class="col-sm-10">
 
                     <input type="text" class="form-control" id="nombreId" name="nombre" value="<%=nombre%>">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="fechaId" class="control-label col-sm-2">Fecha lanzamiento: *</label>
+                <label for="fechaId" class="control-label col-sm-2">Año de lanzamiento:</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" id="fechaId" name="anioLanzamiento" value="<%=anioLanzamiento%>" >
+                    <input type="date" class="form-control" id="fechaId" name="fechaLanzamiento" value="<%=fechaLanzamiento%>" >
                 </div>
             </div>
             <div class="form-group row">
-                <label for="garantiaId" class="control-label col-sm-2">Rating:</label>
+                <label for="garantiaId" class="control-label col-sm-2">Años de garantia:</label>
                 <div class="col-sm-5">
-                    <input type="number" class="form-control" id="ratingId" name="rating" value="<%=rating%>">
+                    <input type="number" class="form-control" id="garantiaId" name="aniosGarantia" value="<%=aniosGarantia%>">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="descripcionId" class="control-label col-sm-2">Actores Pricipales:</label>
+                <label for="descripcionId" class="control-label col-sm-2">Descripcion:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="actoresId" name="actoresPrincipales" value="<%=actoresPrincipales%>">
+                    <input type="text" class="form-control" id="descripcionId" name="descripcion" value="<%=descripcion%>">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="precioId" class="control-label col-sm-2">Sinopsis:</label>
+                <label for="precioId" class="control-label col-sm-2">Pecio:*</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="sinopsis" id="sinopsisId"  value="<%=sinopsis%>">
+                    <input type="text" class="form-control" name="precio" id="precioId"  value="<%=precio%>">
                 </div>
             </div>
 
             <div class="col-sm-12">
                 <div class="text-center">
-                    <a href="http://localhost:3000/api/actor/gestion/<%=idPadre%>" class="btn btn-sm btn-primary" role="button">Cancelar
+                    <a href="http://localhost:3000/api/tienda/gestion/<%=idPadre%>" class="btn btn-sm btn-primary" role="button">Cancelar
                     </a>
                     <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                 </div>

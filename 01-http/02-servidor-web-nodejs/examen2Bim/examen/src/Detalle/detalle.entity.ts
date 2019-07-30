@@ -8,11 +8,11 @@ export  class DetalleEntity {
     @PrimaryGeneratedColumn()
     detalleId:number;
 
-    @Column({
+  /*  @Column({
         default: 1,
     })
     cantidad:number;
-
+*/
     @ManyToOne(
         type => ProductoEntity,
         producto=> producto.detalles

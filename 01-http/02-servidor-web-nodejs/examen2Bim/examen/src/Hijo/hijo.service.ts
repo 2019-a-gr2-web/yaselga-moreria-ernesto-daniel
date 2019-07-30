@@ -27,25 +27,30 @@ export class ProductosService {
         });
     }
 
-    buscar(parametrosBusqueda?,fechaBusqueda?):Promise<ProductoEntity[]>{
-        if(parametrosBusqueda!=""&&fechaBusqueda!=""){
+    buscar(parametrosBusquedaNombre?,fechaBusqueda?):Promise<ProductoEntity[]>{
+        if(parametrosBusquedaNombre!=""&&fechaBusqueda!=""){
             return this._productoRepository.find({
-                nombre:parametrosBusqueda,
+                nombre:parametrosBusquedaNombre,
                 aniosGarantia:fechaBusqueda
             });
         }else{
-            if(parametrosBusqueda==""&& fechaBusqueda !=""){
+            if(parametrosBusquedaNombre==""&& fechaBusqueda !=""){
                 return this._productoRepository.find({
-                    nombre:parametrosBusqueda
+                    nombre:parametrosBusquedaNombre
                 });
-            }else if(parametrosBusqueda!="" && fechaBusqueda==""){
+            }else if(parametrosBusquedaNombre!="" && fechaBusqueda==""){
                 return this._productoRepository.find({
-                    nombre:parametrosBusqueda
+                    nombre:parametrosBusquedaNombre
                 });
             }else{
                 return this._productoRepository.find();
             }
         }
+    }
+    buscarXid(id?:number):Promise<object>{
+        return this._productoRepository.find({
+            productoId:id
+        });
     }
 
     listarTodo():Promise<ProductoEntity[]>{
