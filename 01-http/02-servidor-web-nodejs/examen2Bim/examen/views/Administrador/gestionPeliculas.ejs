@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Compra Peliculas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .espacio{
+            height: 100px;
+        }
+        .cabecera{
+            padding-top:20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="col-sm-12">
+        <div class="cabecera row text-right">
+            <div class="col-sm-6">
+                <span class="text-sm-right"> <%=usuario%></span>
+            </div>
+            <div class="col-sm-6">
+                <a href="http://localhost:3000/api/login">
+                    <button  type="button" class="btn btn-sm btn-primary">Salir</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="espacio"></div>
+    <div class="col-sm-12">
+        <form action="/api/actor/gestion/buscar/<%=idPadre%>" class="form-horizontal" method="post">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <input type="date" class="form-control" id="fechaBusquedaId" placeholder="Busqueda" name="fechaBusqueda">
+                </div>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="nombreBusquedaId" placeholder="Busqueda" name="nombreBusqueda">
+                </div>
+                <div class="col-sm-2 text-right"><button type="submit" class="btn btn-sm btn-primary">buscar</button></div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group row text-right">
+            <div class="col-sm-12">
+                <a href="http://localhost:3000/api/actor/gestion/crear/<%=idPadre%>">
+                    <button type="button" class="btn btn-sm btn-primary">Crear</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <table class="table table-sm table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Anio Lanzamiento</th>
+                    <th>Rating</th>
+                    <th>Actores Principales</th>
+                    <th>Sinopsis</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <% listaPeliculas.forEach((peliculas)=>{ %>
+                    <tr>
+                        <td><%= peliculas.nombre %></td>
+                        <td><%= peliculas.anioLanzamiento %></td>
+                        <td><%= peliculas.rating %></td>
+                        <td><%= peliculas.actoresPrincipales %></td>
+                        <td><%= peliculas.sinopsis%> </td>
+                        <td>
+                            <form action="/api/actor/gestion/eliminar/<%=idPadre%>" method="post">
+                                <input type="text" name="peliculaId" hidden value="<%=peliculas.peliculaId%> ">
+                                <button type="submit" class="btn btn-xs btn-info">Borrar</button>
+                            </form>
+                            <form action="/api/actor/gestion/editar/<%=idPadre%>" method="post">
+                                <input type="text" name="peliculaId" hidden value="<%=peliculas.peliculaId%> ">
+                                <button type="submit" class="btn btn-xs btn-info">Editar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% })%>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="http://localhost:3000/api/menu" class="btn btn-sm btn-primary" role="button">Regresar</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    const hoy=new Date()
+    let mes=hoy.getMonth()+1;
+    let dia=hoy.getDate()
+    const fecha=document.getElementById("fechaBusquedaId");
+    if(mes<10){
+        mes="0"+mes;
+    }
+    if(dia<10){
+        dia="0"+dia;
+    }
+    fecha.value=hoy.getFullYear()+"-"+mes+"-"+dia;
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Compra Peliculas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .espacio{
+            height: 100px;
+        }
+        .cabecera{
+            padding-top:20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="col-sm-12">
+        <div class="cabecera row text-right">
+            <div class="col-sm-6">
+
+            </div>
+            <div class="col-sm-6">
+                <a href="http://localhost:3000/api/login">
+                    <button  type="button" class="btn btn-sm btn-primary">Salir</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="espacio"></div>
+    <!--<div class="col-sm-12">
+        <form action="/api/tienda/buscar" class="form-horizontal" method="post">
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="busquedaId" placeholder="Busqueda" name="busqueda">
+                </div>
+                <div class="col-sm-2 text-right"><button type="submit" class="btn btn-sm btn-primary">buscar</button></div>
+            </div>
+
+        </form>
+    </div>-->
+
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <table class="table table-md table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Peliculas</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% listaActores.forEach((actor)=>{ %>
+                    <tr>
+                        <td><%= actor.nombres %></td>
+                        <td><%= actor.apellidos %></td>
+                        <td><%= actor.fechaNacimiento %></td>
+                        <td><%= actor.numeroPeliculas %></td>
+                        <td><%if(actor.retirado){%>
+                                <input type="checkbox" disabled>
+                            <%}else{%>
+                                <input type="checkbox" checked disabled>
+                            <%}%>
+                        </td>
+                        <td>
+                            <form action="/api/tienda/eliminar" method="post">
+                                <input type="text" name="padreId" hidden value="<%=actor.actorId%> ">
+                                <a href="http://localhost:3000/api/actor/gestion/<%=actor.actorId%>">
+                                    <button type="button" class="btn btn-xs btn-info">Gestionar Peliculas</button>
+                                </a>
+                            </form>
+                        </td>
+                    </tr>
+                <% })%>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="http://localhost:3000/api/menu" class="btn btn-sm btn-primary" role="button">Regresar</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

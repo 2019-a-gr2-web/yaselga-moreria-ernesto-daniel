@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Compra Peliculas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <style>
+        .espacio{
+            height: 100px;
+        }
+        .cabecera{
+            padding-top:20px;
+        }
+    </style>
+    <script src='/socket.io.js' type='text/javascript'></script>
+</head>
+<body>
+<%- include('../Componentes/header')%>
+<div class="container">
+    <div class="col-md-12 form-group">
+        <div class="form-horizontal">
+            <form id="myForm" action="/api/actor/gestion/consultar-por-id/<%=idPedido%>" method="post">
+                <label class="col-xs-4 control-label" for="selectId">Actor: </label>
+                <select class="col-xs-6 form-control" name="actorId" id="selectId">
+                    <% listaActores.forEach((actor)=>{ %>
+
+                        <option value="<%=actor.actorId%>"<%if(idActor==actor.actorId){%>selected<%}%>>
+                            <%=actor.nombres+" "+actor.apellidos%>
+                        </option>
+                    <% })%>
+                </select>
+                <div class="col-xs-2">
+                    <button type="submit" class="btn btn-sm btn-primary" id="btn-pedido">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <div class="col-sm-6">
+                <form action="/api/pedido/crear-pedido" method="post">
+                    <div class="text-right">
+                        <input type="text" name="usuarioNombre" value="<%=usuario%>" hidden>
+
+                        <button type="submit" class="btn btn-sm btn-primary" id="btn-pedido">Empezar Pedido</button>
+                    </div>
+                </form>
+        </div>
+
+        <div class="col-sm-6 ">
+            <div class="text-center">
+                <a href="http://localhost:3000/api/pedido/lista-pedido-usuario/" class="btn btn-sm btn-primary" role="button">Ver Pedidos
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <table class="table table-sm table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Anio Lanzamiento</th>
+                    <th>Rating</th>
+                    <th>Actores Principales</th>
+                    <th>Sinopsis</th>
+                    <th <%if (idPedido==0){%>class="hidden"<%}%>>Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody id="bodyPeliculas">
+
+                <% listaPeliculas.forEach((peliculas)=>{ %>
+                    <tr>
+                        <td><%= peliculas.nombre %></td>
+                        <td><%= peliculas.anioLanzamiento %></td>
+                        <td><%= peliculas.rating %></td>
+                        <td><%= peliculas.actoresPrincipales %></td>
+                        <td><%= peliculas.sinopsis%> </td>
+                        <td <%if (idPedido==0){%>class="hidden"<%}%> >
+                            <form action="/api/pedido/crear-detalle/<%=idPedido%>" method="post">
+
+                                <input type="text" name="peliculaId" hidden value="<%=peliculas.peliculaId%>">
+                                <button type="submit" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">Agregar al carrito</button>
+                            </form>
+
+
+                        </td>
+                    </tr>
+                <% })%>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="col-sm-12 ">
+        <div class="text-center">
+            <a href="http://localhost:3000/api/menu" class="btn btn-sm btn-warning <%if (idPedido==0){%>hidden<%}%>" role="button"  >Cancelar
+            </a>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+</script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</body>
+</html>
